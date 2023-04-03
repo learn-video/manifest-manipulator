@@ -4,13 +4,12 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/grafov/m3u8"
 	"github.com/mauricioabreu/video-manifest/filter"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
-var masterPlaylist = `
+var masterPlaylistData = `
 #EXTM3U
 #EXT-X-VERSION:4
 #EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aach-96",LANGUAGE="en",NAME="English",DEFAULT=YES,AUTOSELECT=YES,CHANNELS="2"
@@ -36,14 +35,16 @@ func TestFilter(t *testing.T) {
 var _ = Describe("Filter variants by bandwidth", func() {
 	When("min is set", func() {
 		It("collects all variants with bandwidth greater than min", func() {
-			playlist, _, err := m3u8.Decode(*bytes.NewBufferString(masterPlaylist), false)
-			Expect(err).To(Not(HaveOccurred()))
-			mPlaylist := playlist.(*m3u8.MasterPlaylist)
-			Expect(len(mPlaylist.Variants)).To(Equal(8))
+			p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
+			Expect(err).ToNot(HaveOccurred())
 
-			mPlaylist = filter.FilterBandwidth(mPlaylist, 800000)
+			Expect(len(p.Playlist.Variants)).To(Equal(8))
 
-			Expect(len(mPlaylist.Variants)).To(Equal(3))
+			p.FilterBandwidth(filter.BandwidthFilter{
+				Min: 800000,
+			})
+
+			Expect(len(p.Playlist.Variants)).To(Equal(3))
 		})
 	})
 })

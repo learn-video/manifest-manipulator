@@ -1,14 +1,41 @@
 package filter
 
-import "github.com/grafov/m3u8"
+import (
+	"bytes"
+	"math"
 
-func FilterBandwidth(mp *m3u8.MasterPlaylist, min uint32) *m3u8.MasterPlaylist {
+	"github.com/grafov/m3u8"
+)
+
+type MasterPlaylist struct {
+	Playlist *m3u8.MasterPlaylist
+}
+
+type BandwidthFilter struct {
+	Min int
+	Max int
+}
+
+func NewMasterPlaylist(data bytes.Buffer) (*MasterPlaylist, error) {
+	playlist, _, err := m3u8.Decode(data, false)
+	if err != nil {
+		return nil, err
+	}
+	return &MasterPlaylist{
+		Playlist: playlist.(*m3u8.MasterPlaylist),
+	}, nil
+}
+
+func (p *MasterPlaylist) FilterBandwidth(f BandwidthFilter) {
+	max := f.Max
+	if max <= 0 {
+		max = math.MaxInt
+	}
 	variants := make([]*m3u8.Variant, 0)
-	for _, variant := range mp.Variants {
-		if variant.Bandwidth >= min {
+	for _, variant := range p.Playlist.Variants {
+		if int(variant.Bandwidth) >= f.Min && int(variant.Bandwidth) <= max {
 			variants = append(variants, variant)
 		}
 	}
-	mp.Variants = variants
-	return mp
+	p.Playlist.Variants = variants
 }
