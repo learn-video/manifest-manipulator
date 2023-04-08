@@ -47,4 +47,18 @@ var _ = Describe("Filter variants by bandwidth", func() {
 			Expect(len(p.Playlist.Variants)).To(Equal(3))
 		})
 	})
+	When("max is set", func() {
+		It("collects all variants with bandwidth lowert than max", func() {
+			p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
+			Expect(err).ToNot(HaveOccurred())
+
+			Expect(len(p.Playlist.Variants)).To(Equal(8))
+
+			p.FilterBandwidth(filter.BandwidthFilter{
+				Max: 1500000,
+			})
+
+			Expect(len(p.Playlist.Variants)).To(Equal(7))
+		})
+	})
 })
