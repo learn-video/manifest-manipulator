@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/mauricioabreu/video-manifest/filter"
+	"github.com/mauricioabreu/manifest-manipulator/filter"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
