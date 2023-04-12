@@ -32,43 +32,56 @@ func TestFilter(t *testing.T) {
 	RunSpecs(t, "Filter Suite")
 }
 
-var _ = Describe("Filter variants by bandwidth", func() {
-	When("min is set", func() {
-		It("collects all variants with bandwidth greater than min", func() {
-			p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
-			Expect(err).ToNot(HaveOccurred())
-			Expect(len(p.Playlist.Variants)).To(Equal(8))
+var _ = Describe("Filter master playlist", func() {
+	Describe("Filter bandwidth", func() {
+		When("min is set", func() {
+			It("collects all variants with bandwidth greater than min", func() {
+				p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
+				Expect(err).ToNot(HaveOccurred())
+				Expect(len(p.Playlist.Variants)).To(Equal(8))
 
-			p.FilterBandwidth(filter.BandwidthFilter{
-				Min: 800000,
+				p.FilterBandwidth(filter.BandwidthFilter{
+					Min: 800000,
+				})
+
+				Expect(len(p.Playlist.Variants)).To(Equal(3))
 			})
+		})
+		When("max is set", func() {
+			It("collects all variants with bandwidth lower than max", func() {
+				p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
+				Expect(err).ToNot(HaveOccurred())
+				Expect(len(p.Playlist.Variants)).To(Equal(8))
 
-			Expect(len(p.Playlist.Variants)).To(Equal(3))
+				p.FilterBandwidth(filter.BandwidthFilter{
+					Max: 1500000,
+				})
+
+				Expect(len(p.Playlist.Variants)).To(Equal(7))
+			})
+		})
+		When("min and max are set", func() {
+			It("collects all variants with bandwidth between min and max", func() {
+				p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
+				Expect(err).ToNot(HaveOccurred())
+				Expect(len(p.Playlist.Variants)).To(Equal(8))
+
+				p.FilterBandwidth(filter.BandwidthFilter{
+					Min: 800000,
+					Max: 1500000,
+				})
+
+				Expect(len(p.Playlist.Variants)).To(Equal(2))
+			})
 		})
 	})
-	When("max is set", func() {
-		It("collects all variants with bandwidth lower than max", func() {
+	Describe("Filter by frame rate", func() {
+		It("collects all variants with the given frame rate", func() {
 			p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
 			Expect(err).ToNot(HaveOccurred())
 			Expect(len(p.Playlist.Variants)).To(Equal(8))
 
-			p.FilterBandwidth(filter.BandwidthFilter{
-				Max: 1500000,
-			})
-
-			Expect(len(p.Playlist.Variants)).To(Equal(7))
-		})
-	})
-	When("min and max are set", func() {
-		It("collects all variants with bandwidth between min and max", func() {
-			p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
-			Expect(err).ToNot(HaveOccurred())
-			Expect(len(p.Playlist.Variants)).To(Equal(8))
-
-			p.FilterBandwidth(filter.BandwidthFilter{
-				Min: 800000,
-				Max: 1500000,
-			})
+			p.FilterFrameRate(60)
 
 			Expect(len(p.Playlist.Variants)).To(Equal(2))
 		})

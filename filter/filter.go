@@ -39,3 +39,13 @@ func (p *MasterPlaylist) FilterBandwidth(f BandwidthFilter) {
 	}
 	p.Playlist.Variants = variants
 }
+
+func (p *MasterPlaylist) FilterFrameRate(rate float64) {
+	variants := make([]*m3u8.Variant, 0)
+	for _, variant := range p.Playlist.Variants {
+		if variant.FrameRate == rate {
+			variants = append(variants, variant)
+		}
+	}
+	p.Playlist.Variants = variants
+}
