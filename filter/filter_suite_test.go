@@ -86,4 +86,19 @@ var _ = Describe("Filter master playlist", func() {
 			Expect(len(p.Playlist.Variants)).To(Equal(2))
 		})
 	})
+	Describe("Set first playlist", func() {
+		It("sets the selected playlist to be the first", func() {
+			p, err := filter.NewMasterPlaylist(*bytes.NewBufferString(masterPlaylistData))
+			Expect(err).ToNot(HaveOccurred())
+
+			p.SetFirst(2)
+
+			variants := p.Playlist.Variants
+			Expect(len(variants)).To(Equal(8))
+			Expect(int(variants[0].Bandwidth)).To(Equal(800000))
+			Expect(int(variants[1].Bandwidth)).To(Equal(600000))
+			Expect(int(variants[2].Bandwidth)).To(Equal(1500000))
+			Expect(int(variants[3].Bandwidth)).To(Equal(2000000))
+		})
+	})
 })

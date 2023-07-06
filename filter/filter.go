@@ -49,3 +49,11 @@ func (p *MasterPlaylist) FilterFrameRate(rate float64) {
 	}
 	p.Playlist.Variants = variants
 }
+
+func (p *MasterPlaylist) SetFirst(index int) {
+	choosen := p.Playlist.Variants[index-1]
+
+	variants := append([]*m3u8.Variant{choosen}, p.Playlist.Variants[0])
+	variants = append(variants, p.Playlist.Variants[2:]...)
+	p.Playlist.Variants = variants
+}
