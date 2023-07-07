@@ -4,9 +4,9 @@ Manifest Manipulator is a powerful tool designed to simplify the modification of
 
 ## Why?
 
-<img src="manifest_manipulator.png" width="600" height="400">
-
 Video content comes with its fair share of complexities. Certain video manifests may encounter compatibility issues with various devices due to factors such as frame rate, bitrate, or other tags that directly impact smooth playback.
+
+<img src="manifest_manipulator.png" width="500" height="400">
 
 The scenario depicted in the image above perfectly illustrates a common problem: devices incapable of playing videos at 60fps. To address this challenge, we introduce Manifest Manipulator — a solution designed to rewrite video manifests on the fly, just before delivering them to users.
 
