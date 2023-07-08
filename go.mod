@@ -3,7 +3,7 @@ module github.com/mauricioabreu/manifest-manipulator
 go 1.20
 
 require (
-	github.com/grafov/m3u8 v0.11.1
+	github.com/grafov/m3u8 v0.12.0
 	github.com/onsi/ginkgo/v2 v2.9.2
 	github.com/onsi/gomega v1.27.6
 )
