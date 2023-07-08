@@ -13,7 +13,6 @@ type MasterPlaylist struct {
 
 type Variant struct {
 	Playlist *m3u8.MediaPlaylist
-	MediaSeq uint64
 }
 
 type BandwidthFilter struct {
