@@ -17,3 +17,5 @@ The scenario depicted in the image above perfectly illustrates a common problem:
 * **Frame Rate Filtering**: Filter video manifests based on the desired frame rate. You can specify the desired frame rate to ensure smooth playback on devices with different capabilities.
 
 * **Set First Manifest**: Set a specific video manifest as the first one in the modified manifest. This feature is useful when you want to prioritize a particular video quality or adapt the manifest for specific player requirements. Players start playing from the first manifest.
+
+* **Define Window Duration (DVR)**: This feature allows you to define the window duration (in seconds) for your video manifests. This feature enables precise control over the availability of video content within the manifest, limitig it when it is necessary.
