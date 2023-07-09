@@ -42,7 +42,7 @@ Steps to reproduce:
 
 When you access the video manifest through the proxy server, you might notice that only three quality options are available in the player. This limitation is a result of the proxy server manipulating the manifest by setting the maximum bandwidth to **3000000**.
 
-<img src="img/limited.png" width="500" height="400">
+<img src="img/limited.png" width="600" height="400">
 
 To understand the changes, you can compare the original video manifest fetched directly from the server with the modified manifest obtained through the proxy server. Here's an example using _curl_ commands:
 
