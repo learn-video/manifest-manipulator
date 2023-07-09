@@ -1,4 +1,4 @@
-module github.com/mauricioabreu/manifest-manipulator
+module github.com/learn-video/manifest-manipulator
 
 go 1.20
 
