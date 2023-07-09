@@ -82,6 +82,6 @@ level_1.m3u8
 level_2.m3u8
 ```
 
-In the modified manifest, the BANDWIDTH attribute for the remaining three quality options has been omitted, effectively limiting the available options in the video player.
+In the modified manifest, the **BANDWIDTH** attribute for the remaining three quality options has been omitted, effectively limiting the available options in the video player.
 
 By adjusting the maximum bandwidth value in the proxy server's configuration, you can control the number and quality of options presented to the viewer, ensuring an optimized viewing experience based on your specific requirements - like offering 4k only to premium users.
