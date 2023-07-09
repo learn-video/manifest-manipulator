@@ -26,7 +26,7 @@ To demonstrate the functionality of the Video Manifest Modifier, we've set up a 
 
 ```mermaid
 graph LR
-  A[Player page] -->|Requests video manifest| B(Proxy Server);
+  A[Player] -->|Requests video manifest| B(Proxy Server);
   B -->|Intercepts and modifies the manifest| C[Original Streaming];
   C -->|Applies modifications| B;
   B -->|Returns modified manifest| A;
