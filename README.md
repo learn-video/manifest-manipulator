@@ -80,10 +80,6 @@ level_0.m3u8
 level_1.m3u8
 #EXT-X-STREAM-INF:BANDWIDTH=2749539,RESOLUTION=1280x534
 level_2.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=4947980,RESOLUTION=1920x800
-level_3.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=8247438,RESOLUTION=1920x800
-level_4.m3u8
 ```
 
 In the modified manifest, the BANDWIDTH attribute for the remaining three quality options has been omitted, effectively limiting the available options in the video player.
