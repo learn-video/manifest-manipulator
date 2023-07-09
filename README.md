@@ -19,3 +19,23 @@ The scenario depicted in the image above perfectly illustrates a common problem:
 * **Set First Manifest**: Set a specific video manifest as the first one in the modified manifest. This feature is useful when you want to prioritize a particular video quality or adapt the manifest for specific player requirements. Players start playing from the first manifest.
 
 * **Define Window Duration (DVR)**: This feature allows you to define the window duration (in seconds) for your video manifests. This feature enables precise control over the availability of video content within the manifest, limitig it when it is necessary.
+
+## Demo
+
+To demonstrate the functionality of the Video Manifest Modifier, we've set up a demo consisting of an HTML page with a video player. The demo involves two servers: one server hosting the HTML page and another server acting as a proxy to modify the manifest downloaded from the video HLS (HTTP Live Streaming).
+
+```mermaid
+graph LR
+  A[Player page] -->|Requests video manifest| B(Proxy Server);
+  B -->|Intercepts and modifies the manifest| C[Original Streaming];
+  C -->|Applies modifications| B;
+  B -->|Returns modified manifest| A;
+
+```
+
+Steps to reproduce:
+
+* Go do `demo` folder
+* Run `go run main.go`
+* Browse http://localhost:8080
+* Play it!
