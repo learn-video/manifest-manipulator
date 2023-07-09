@@ -52,11 +52,13 @@ func main() {
 		req.URL.Host = target.Host
 		req.Host = target.Host
 		req.Header.Set("Host", target.Host)
+		req.Header.Del("Accept-Encoding")
 	}
 	modifyResponse := func(res *http.Response) error {
 		res.Header.Set("Access-Control-Allow-Origin", "*")
 		res.Header.Set("Access-Control-Allow-Methods", "*")
 		res.Header.Set("Access-Control-Allow-Headers", "*")
+		res.Header.Set("Content-Type", "text/plain")
 
 		body, err := modifyManifest(res)
 		if err != nil {
