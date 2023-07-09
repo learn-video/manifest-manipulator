@@ -6,7 +6,7 @@ Manifest Manipulator is a powerful tool designed to simplify the modification of
 
 Video content comes with its fair share of complexities. Certain video manifests may encounter compatibility issues with various devices due to factors such as frame rate, bitrate, or other tags that directly impact smooth playback.
 
-<img src="manifest_manipulator.png" width="500" height="400">
+<img src="img/manifest_manipulator.png" width="500" height="400">
 
 The scenario depicted in the image above perfectly illustrates a common problem: devices incapable of playing videos at 60fps. To address this challenge, we introduce Manifest Manipulator — a solution designed to rewrite video manifests on the fly, just before delivering them to users.
 
@@ -41,6 +41,8 @@ Steps to reproduce:
 * Play it!
 
 When you access the video manifest through the proxy server, you might notice that only three quality options are available in the player. This limitation is a result of the proxy server manipulating the manifest by setting the maximum bandwidth to **3000000**.
+
+<img src="img/limited.png" width="500" height="400">
 
 To understand the changes, you can compare the original video manifest fetched directly from the server with the modified manifest obtained through the proxy server. Here's an example using _curl_ commands:
 
