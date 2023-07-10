@@ -11,10 +11,6 @@ type MasterPlaylist struct {
 	Playlist *m3u8.MasterPlaylist
 }
 
-type Variant struct {
-	Playlist *m3u8.MediaPlaylist
-}
-
 type BandwidthFilter struct {
 	Min int
 	Max int
@@ -60,26 +56,4 @@ func (p *MasterPlaylist) SetFirst(index int) {
 	variants := append([]*m3u8.Variant{choosen}, p.Playlist.Variants[0])
 	variants = append(variants, p.Playlist.Variants[2:]...)
 	p.Playlist.Variants = variants
-}
-
-func NewVariant(data bytes.Buffer) (*Variant, error) {
-	playlist, _, err := m3u8.Decode(data, false)
-	if err != nil {
-		return nil, err
-	}
-	return &Variant{
-		Playlist: playlist.(*m3u8.MediaPlaylist),
-	}, nil
-}
-
-func (v *Variant) FilterDVR(seconds float64) {
-	acc := float64(0)
-	for _, segment := range v.Playlist.Segments {
-		acc += segment.Duration
-		if acc <= seconds {
-			v.Playlist.Remove()
-		} else {
-			break
-		}
-	}
 }

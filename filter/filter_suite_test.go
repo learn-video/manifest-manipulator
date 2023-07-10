@@ -27,60 +27,6 @@ variant-audio_1=96000-video=4686976.m3u8
 #EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=684000,CODECS="avc1.640029",RESOLUTION=1920x1080,URI="keyframes/variant-video=4686976.m3u8"
 `
 
-var variantPlaylistData = `
-#EXTM3U
-#EXT-X-VERSION:4
-#EXT-X-MEDIA-SEQUENCE:320035356
-#EXT-X-INDEPENDENT-SEGMENTS
-#EXT-X-TARGETDURATION:8
-#EXT-X-PROGRAM-DATE-TIME:2020-09-15T13:32:55Z
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035684.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035685.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035686.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035687.ts
-#EXTINF:4.1333, no desc
-variant-audio_1=96000-video=249984-320035688.ts
-#EXT-X-DATERANGE:ID="4026531847",START-DATE="2020-09-15T14:00:39.133333Z",PLANNED-DURATION=60,SCTE35-OUT=0xFC3025000000000BB800FFF01405F00000077FEFFE0AF311F0FE005265C0000101010000817C918E
-#EXT-X-CUE-OUT:60
-#EXT-X-PROGRAM-DATE-TIME:2020-09-15T14:00:39.133333Z
-#EXTINF:5.8666, no desc
-variant-audio_1=96000-video=249984-320035689.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035690.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035691.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035692.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035693.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035694.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035695.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035696.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035697.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035698.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035699.ts
-#EXTINF:4.1333, no desc
-variant-audio_1=96000-video=249984-320035700.ts
-#EXT-X-CUE-IN
-#EXT-X-PROGRAM-DATE-TIME:2020-09-15T14:01:39.133333Z
-#EXTINF:5.8666, no desc
-variant-audio_1=96000-video=249984-320035701.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035702.ts
-#EXTINF:5, no desc
-variant-audio_1=96000-video=249984-320035703.ts
-`
-
 func TestFilter(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Filter Suite")
@@ -153,20 +99,6 @@ var _ = Describe("Filter master playlist", func() {
 			Expect(int(variants[1].Bandwidth)).To(Equal(600000))
 			Expect(int(variants[2].Bandwidth)).To(Equal(1500000))
 			Expect(int(variants[3].Bandwidth)).To(Equal(2000000))
-		})
-	})
-})
-
-var _ = Describe("Filter variant playlist", func() {
-	Describe("Filter DVR", func() {
-		It("removes some segments from the variant playlist", func() {
-			v, err := filter.NewVariant(*bytes.NewBufferString(variantPlaylistData))
-			Expect(err).ToNot(HaveOccurred())
-			Expect(int(v.Playlist.Count())).To(Equal(20))
-
-			v.FilterDVR(20)
-
-			Expect(int(v.Playlist.Count())).To(Equal(16))
 		})
 	})
 })
